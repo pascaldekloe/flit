@@ -9,46 +9,46 @@ import (
 
 // Uint64 decodes an integer from buf and returns that value and the number of
 // bytes read. If the is buffer smaller than 9 bytes, Uint64 may panic.
-func Uint64(buf []byte) (x uint64, n int) {
-	x = binary.LittleEndian.Uint64(buf)
+func Uint64(buf []byte) (v uint64, n int) {
+	v = binary.LittleEndian.Uint64(buf)
 
-	a := bits.TrailingZeros64(x)
-	if a > 7 {
-		x = x>>8 | uint64(buf[8])<<56
-		return x, 9
+	tz := bits.TrailingZeros64(v)
+	if tz > 7 {
+		v = v>>8 | uint64(buf[8])<<56
+		return v, 9
 	}
-	size := a + 1
+	size := tz + 1
 
-	b := uint(size)
-	trim := (8 - b) * 8
-	x <<= trim
-	x >>= trim
-	x >>= b
+	u := uint(size)
+	trim := (8 - u) * 8
+	v <<= trim
+	v >>= trim
+	v >>= u
 
-	return x, size
+	return v, size
 }
 
 // PutUint64 encodes an integer into buf and returns the number of bytes written.
 // If the buffer is smaller than 9 bytes, PutUint64 may panic.
-func PutUint64(buf []byte, x uint64) (n int) {
-	lz := bits.LeadingZeros64(x)
+func PutUint64(buf []byte, v uint64) (n int) {
+	lz := bits.LeadingZeros64(v)
 	if lz > 56 {
-		buf[0] = uint8(x)<<1 | 1
+		buf[0] = uint8(v)<<1 | 1
 		return 1
 	}
 	if lz < 8 {
 		buf[0] = 0
-		binary.LittleEndian.PutUint64(buf[1:], x)
+		binary.LittleEndian.PutUint64(buf[1:], v)
 		return 9
 	}
 
 	// count extra bytes
 	e := (63 - lz) / 7
 
-	x <<= 1
-	x |= 1
-	x <<= uint(e)
+	v <<= 1
+	v |= 1
+	v <<= uint(e)
+	binary.LittleEndian.PutUint64(buf, v)
 
-	binary.LittleEndian.PutUint64(buf, x)
 	return e + 1
 }
