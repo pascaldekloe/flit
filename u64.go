@@ -20,7 +20,7 @@ func Uint64(buf []byte) (x uint64, n int) {
 	size := a + 1
 
 	b := uint(size)
-	trim := (8 - b) / 8
+	trim := (8 - b) * 8
 	x <<= trim
 	x >>= trim
 	x >>= b

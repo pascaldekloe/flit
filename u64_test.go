@@ -32,8 +32,8 @@ var tests = []struct {
 }
 
 func TestPutUint64(t *testing.T) {
-	var buf [9]byte
 	for _, gold := range tests {
+		buf := [...]byte{1, 2, 3, 4, 5, 6, 7, 8, 9}
 		n := PutUint64(buf[:], gold.val)
 		got := hex.EncodeToString(buf[:n])
 		if got != gold.hex {
@@ -44,8 +44,8 @@ func TestPutUint64(t *testing.T) {
 }
 
 func TestUint64(t *testing.T) {
-	var buf [9]byte
 	for _, gold := range tests {
+		buf := [...]byte{1, 2, 3, 4, 5, 6, 7, 8, 9}
 		n, err := hex.Decode(buf[:], []byte(gold.hex))
 		if err != nil {
 			t.Fatal(err)
