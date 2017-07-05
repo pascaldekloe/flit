@@ -20,8 +20,8 @@ The first octet advertises the number of octets following with the trailing
 zero count. Any remaining bits hold the least significant data bits and the
 following octets, if any at all, hold the rest in little-endian order.
 
-| SIZE      | FIRST BITS       | RANGE                                                       |
-|:----------|:-----------------|-------------------------------------------------------------|
+| Size      | First Bits       | Range                                                       |
+|:----------|:-----------------|:------------------------------------------------------------|
 | 1 octet   | x x x x x x x 1  |  7-bit (0, 127)                                             |
 | 2 octets  | x x x x x x 1 0  | 14-bit (128, 16'383)                                        |
 | 3 octets  | x x x x x 1 0 0  | 23-bit (16'384, 2'097'151)                                  |
@@ -43,3 +43,15 @@ Encoding *should* pick the smallest range capable to hold the value.
 4. Shifting the two size bits off makes `0 0 0 0 0 0 1 1  1 1 1 0 1 0 0 1`.
 
 ... which is decimal value 1001.
+
+
+#### Benchmark
+
+The full encode + decode cycle in C takes less than 8ns on a "Intel i5-2520M" mobile CPU from quarter 1 of year 2011.
+
+The Go [![(GoDoc)](https://godoc.org/github.com/pascaldekloe/flit?status.svg)](https://godoc.org/github.com/pascaldekloe/flit) imlementation needs a bit more for safety.
+
+```
+BenchmarkPutUint64-4   	200000000	         6.28 ns/op	1273.75 MB/s
+BenchmarkUint64-4      	200000000	         7.64 ns/op	1047.53 MB/s
+```
