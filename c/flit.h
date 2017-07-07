@@ -20,23 +20,13 @@ int flit64dec(uint64_t* v, void* buf) {
 		*v = x >> 8 | (uint64_t)c << 56;
 		return 9;
 	}
+	int size = tzc + 1;
 
-	static const uint64_t mask[8] = {
-		0xff,
-		0xffff,
-		0xffffff,
-		0xffffffff,
-		0xffffffffff,
-		0xffffffffffff,
-		0xffffffffffffff,
-		0xffffffffffffffff,
-	};
-	x &= mask[tzc];
-
-	// const here seems to ensure that 'size' is not aliased by '*v'
-	const int size = tzc + 1;
-
-	*v = x >> size;
+	int trim = (8 - size) * 8;
+	x <<= trim;
+	x >>= trim;
+	x >>= size;
+	*v = x;
 
 	return size;
 }
