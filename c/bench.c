@@ -27,5 +27,5 @@ int main(int argc, char* argv[]) {
 
 	time_t a = start.tv_sec * 1000000000 + start.tv_nsec;
 	time_t b = end.tv_sec * 1000000000 + end.tv_nsec;
-	printf("took %fns for %ludM\n", ((double) b - (double) a) / (double) n, n / 1000000);
+	printf("took %.2fns for %" PRIu64 "M\n", ((double) b - (double) a) / (double) n, n / 1000000);
 }
