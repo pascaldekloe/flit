@@ -3,6 +3,7 @@
 package flit
 
 import (
+	"encoding/binary"
 	"encoding/hex"
 	"testing"
 )
@@ -59,23 +60,30 @@ func TestUint64(t *testing.T) {
 }
 
 // benchmark data
-var serials [18][]byte
 var values [18]uint64
+var serials [18][]byte
+var varints [18][]byte
 
 func init() {
 	for i, gold := range tests {
+		values[i] = gold.val
+
 		buf := make([]byte, 9)
 		if _, err := hex.Decode(buf, []byte(gold.hex)); err != nil {
 			panic(err)
 		}
 		serials[i] = buf
-		values[i] = gold.val
+
+		buf = make([]byte, 10)
+		binary.PutUvarint(buf, gold.val)
+		varints[i] = buf
 	}
 }
 
 // prevents compiler optimization
-var ckx uint64
+var ckv uint64
 var ckn int
+var ckb byte
 
 func BenchmarkPutUint64(b *testing.B) {
 	b.SetBytes(8)
@@ -86,12 +94,53 @@ func BenchmarkPutUint64(b *testing.B) {
 	}
 }
 
+// BenchmarkPutUint64Raw is for comparison with fixed-width values.
+func BenchmarkPutUint64Raw(b *testing.B) {
+	b.SetBytes(8)
+	buf := make([]byte, 8)
+
+	for i := 0; i < b.N; i++ {
+		binary.LittleEndian.PutUint64(buf, values[i%len(values)])
+		ckb += buf[0]
+	}
+}
+
+// BenchmarkPutUint64VQL is for comparison the core library.
+func BenchmarkPutUint64VQL(b *testing.B) {
+	b.SetBytes(8)
+	buf := make([]byte, 10)
+
+	for i := 0; i < b.N; i++ {
+		ckn += binary.PutUvarint(buf, values[i %len(values)])
+	}
+}
+
 func BenchmarkUint64(b *testing.B) {
 	b.SetBytes(8)
 
 	for i := 0; i < b.N; i++ {
-		x, n := Uint64(serials[i%len(serials)])
-		ckx += x
+		v, n := Uint64(serials[i%len(serials)])
+		ckv += v
+		ckn += n
+	}
+}
+
+// BenchmarkUint64Raw is for comparison with fixed-width values.
+func BenchmarkUint64Raw(b *testing.B) {
+	b.SetBytes(8)
+
+	for i := 0; i < b.N; i++ {
+		ckv += binary.LittleEndian.Uint64(serials[i%len(serials)])
+	}
+}
+
+// BenchmarkUint64VQL is for comparison with the core library.
+func BenchmarkUint64VQL(b *testing.B) {
+	b.SetBytes(8)
+
+	for i := 0; i < b.N; i++ {
+		v, n := binary.Uvarint(varints[i%len(varints)])
+		ckv += v
 		ckn += n
 	}
 }
