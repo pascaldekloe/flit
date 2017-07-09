@@ -7,8 +7,19 @@ import (
 	"math/bits"
 )
 
-// Uint64 decodes an integer from buf and returns that value and the number of
-// bytes read. If the is buffer smaller than 9 bytes, Uint64 may panic.
+var readMasks = [...]uint64{
+	0xff,
+	0xffff,
+	0xffffff,
+	0xffffffff,
+	0xffffffffff,
+	0xffffffffffff,
+	0xffffffffffffff,
+	0xffffffffffffffff,
+}
+
+// Uint64 decodes an integer from buf and returns that value and the serial size.
+// If the is buffer smaller than 9 bytes, Uint64 may panic.
 func Uint64(buf []byte) (v uint64, n int) {
 	v = binary.LittleEndian.Uint64(buf)
 
@@ -17,18 +28,15 @@ func Uint64(buf []byte) (v uint64, n int) {
 		v = v>>8 | uint64(buf[8])<<56
 		return v, 9
 	}
+
+	v &= readMasks[tz]
+
 	size := tz + 1
-
-	u := uint(size)
-	trim := (8 - u) * 8
-	v <<= trim
-	v >>= trim
-	v >>= u
-
+	v >>= uint(size)
 	return v, size
 }
 
-// PutUint64 encodes an integer into buf and returns the number of bytes written.
+// PutUint64 encodes an integer into buf and returns the serial size.
 // If the buffer is smaller than 9 bytes, PutUint64 may panic.
 func PutUint64(buf []byte, v uint64) (n int) {
 	lz := bits.LeadingZeros64(v)
