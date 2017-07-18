@@ -10,14 +10,13 @@
 
 // Decodes buf into v and returns the serial octet size.
 int flit64dec(uint64_t* v, void* buf) {
-	uint64_t* p = (uint64_t*)buf;
-	uint64_t x = *p;
+	uint64_t x = *(uint64_t*)buf;
 
 	int tzc = 8;
 	if (x) tzc = __builtin_ctzll(x);
 	if (tzc > 7) {
-		uint8_t c = *(uint8_t*)(++p);
-		*v = x >> 8 | (uint64_t)c << 56;
+		uint8_t* cp = (uint8_t*)buf;
+		*v = *(uint64_t*)++cp;
 		return 9;
 	}
 

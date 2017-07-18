@@ -25,7 +25,7 @@ func Uint64(buf []byte) (v uint64, n int) {
 
 	tz := bits.TrailingZeros64(v)
 	if tz > 7 {
-		v = v>>8 | uint64(buf[8])<<56
+		v = binary.LittleEndian.Uint64(buf[1:])
 		return v, 9
 	}
 
