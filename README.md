@@ -55,10 +55,10 @@ as its gets with fixed-width encoding.
 
 
 ```
-BenchmarkPutUint64-12       	300000000	         4.91 ns/op	1627.95 MB/s
-BenchmarkPutUint64Raw-12    	2000000000	         1.95 ns/op	4098.57 MB/s
-BenchmarkPutUint64VQL-12    	200000000	         7.60 ns/op	1052.13 MB/s
-BenchmarkUint64-12          	300000000	         4.54 ns/op	1762.03 MB/s
-BenchmarkUint64Raw-12       	2000000000	         1.98 ns/op	4032.38 MB/s
-BenchmarkUint64VQL-12       	100000000	        11.1 ns/op	 721.53 MB/s
+BenchmarkPutUint64-12       	300000000	         4.44 ns/op	1800.63 MB/s
+BenchmarkPutUint64Raw-12    	2000000000	         1.96 ns/op	4089.20 MB/s
+BenchmarkPutUint64VQL-12    	200000000	         7.61 ns/op	1050.87 MB/s
+BenchmarkUint64-12          	300000000	         4.09 ns/op	1954.54 MB/s
+BenchmarkUint64Raw-12       	1000000000	         2.08 ns/op	3853.11 MB/s
+BenchmarkUint64VQL-12       	100000000	        11.1 ns/op	 722.76 MB/s
 ```
