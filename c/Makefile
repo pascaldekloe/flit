@@ -10,7 +10,7 @@ test.bin:
 	$(CC) -o test.bin -O0 test.c
 
 bench.bin:
-	$(CC) -o bench.bin -O3 bench.c
+	$(CC) -o bench.bin -O2 bench.c
 
 .PHONY: clean
 clean:

@@ -50,8 +50,8 @@ func PutUint64(buf []byte, v uint64) (n int) {
 		return 9
 	}
 
-	// count extra bytes
-	e := (63 - lz) / 7
+	// extra bytes = (bits - 1) / 7 = (63 - lz) / 7
+	e := ((63 - lz) * 2454267027) >> 34
 
 	v <<= 1
 	v |= 1

@@ -55,8 +55,8 @@ int flit64enc(void* buf, uint64_t v) {
 		return 9;
 	}
 
-	// count extra bytes
-	int e = (63 - lzc) / 7;
+	// extra bytes = (bits - 1) / 7 = (63 - lzc) / 7
+	int e = ((63 - lzc) * 2454267027) >> 34;
 
 	v <<= 1;
 	v |= 1;
