@@ -111,7 +111,7 @@ func BenchmarkPutUint64VQL(b *testing.B) {
 	buf := make([]byte, 10)
 
 	for i := 0; i < b.N; i++ {
-		ckn += binary.PutUvarint(buf, values[i %len(values)])
+		ckn += binary.PutUvarint(buf, values[i%len(values)])
 	}
 }
 

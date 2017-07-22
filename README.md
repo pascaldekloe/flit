@@ -46,7 +46,7 @@ Encoding *should* pick the smallest range capable to hold the value.
 
 ## Benchmark
 
-A full FLIT64 encode + decode cycle in C takes 3.23ns on a Mac Pro (Late 2013).
+A full FLIT64 encode + decode cycle in C takes 2.80ns on a Mac Pro (Late 2013).
 
 The implementation in Go
 [![(GoDoc)](https://godoc.org/github.com/pascaldekloe/flit?status.svg)](https://godoc.org/github.com/pascaldekloe/flit)
@@ -55,10 +55,10 @@ as its gets with fixed-width encoding.
 
 
 ```
-BenchmarkPutUint64-12       	300000000	         4.44 ns/op	1800.63 MB/s
-BenchmarkPutUint64Raw-12    	2000000000	         1.96 ns/op	4089.20 MB/s
-BenchmarkPutUint64VQL-12    	200000000	         7.61 ns/op	1050.87 MB/s
-BenchmarkUint64-12          	300000000	         4.09 ns/op	1954.54 MB/s
-BenchmarkUint64Raw-12       	1000000000	         2.08 ns/op	3853.11 MB/s
-BenchmarkUint64VQL-12       	100000000	        11.1 ns/op	 722.76 MB/s
+BenchmarkPutUint64-12       	300000000	         4.03 ns/op	1982.68 MB/s
+BenchmarkPutUint64Raw-12    	2000000000	         1.95 ns/op	4102.42 MB/s
+BenchmarkPutUint64VQL-12    	200000000	         7.63 ns/op	1048.82 MB/s
+BenchmarkUint64-12          	300000000	         4.07 ns/op	1966.81 MB/s
+BenchmarkUint64Raw-12       	1000000000	         2.15 ns/op	3723.81 MB/s
+BenchmarkUint64VQL-12       	100000000	        11.1 ns/op	 723.18 MB/s
 ```

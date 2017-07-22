@@ -39,17 +39,17 @@ func Uint64(buf []byte) (v uint64, n int) {
 // PutUint64 encodes an integer into buf and returns the serial size.
 // If the buffer is smaller than 9 bytes, PutUint64 may panic.
 func PutUint64(buf []byte, v uint64) (n int) {
-	lz := bits.LeadingZeros64(v)
-	if lz > 56 {
+	if v < 128 {
 		buf[0] = uint8(v)<<1 | 1
 		return 1
 	}
-	if lz < 8 {
+	if v >= uint64(1) << 56 {
 		buf[0] = 0
 		binary.LittleEndian.PutUint64(buf[1:], v)
 		return 9
 	}
 
+	lz := bits.LeadingZeros64(v)
 	// extra bytes = (bits - 1) / 7 = (63 - lz) / 7
 	e := ((63 - lz) * 2454267027) >> 34
 
