@@ -46,7 +46,7 @@ Encoding *should* pick the smallest range capable to hold the value.
 
 ## Benchmark
 
-A full FLIT64 encode + decode cycle in C takes 3.88ns on a Mac Pro (Late 2013).
+A full FLIT64 encode + decode cycle in C takes 3.23ns on a Mac Pro (Late 2013).
 
 The implementation in Go
 [![(GoDoc)](https://godoc.org/github.com/pascaldekloe/flit?status.svg)](https://godoc.org/github.com/pascaldekloe/flit)

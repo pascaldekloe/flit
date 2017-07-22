@@ -9,7 +9,7 @@
 #endif
 
 // Decodes buf into v and returns the serial octet size.
-int flit64dec(uint64_t* v, void* buf) {
+size_t flit64dec(uint64_t* v, const void* buf) {
 	uint64_t x = *(uint64_t*)buf;
 
 	int tzc = 8;
@@ -33,7 +33,7 @@ int flit64dec(uint64_t* v, void* buf) {
 	x &= mask[tzc];
 
 	// const here seems to ensure that 'size' is not aliased by '*v'
-	const int size = tzc + 1;
+	const size_t size = tzc + 1;
 
 	*v = x >> size;
 
@@ -41,7 +41,7 @@ int flit64dec(uint64_t* v, void* buf) {
 }
 
 // Encodes v into buf and returns the serial octet size.
-int flit64enc(void* buf, uint64_t v) {
+size_t flit64enc(void* buf, uint64_t v) {
 	int lzc = 64;
 	if (v) lzc = __builtin_clzll(v);
 	if (lzc > 56) {
@@ -56,7 +56,7 @@ int flit64enc(void* buf, uint64_t v) {
 	}
 
 	// extra bytes = (bits - 1) / 7 = (63 - lzc) / 7
-	int e = ((63 - lzc) * 2454267027) >> 34;
+	size_t e = ((63 - lzc) * 2454267027) >> 34;
 
 	v <<= 1;
 	v |= 1;
