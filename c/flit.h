@@ -8,6 +8,10 @@
 #error "first reference implementation AMD64 only"
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Decodes buf into v and returns the serial octet size.
 size_t flit64dec(uint64_t* v, const void* buf) {
 	uint64_t x = *(uint64_t*)buf;
@@ -64,3 +68,7 @@ size_t flit64enc(void* buf, uint64_t v) {
 
 	return e + 1;
 }
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
