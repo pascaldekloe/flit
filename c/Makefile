@@ -1,3 +1,6 @@
+.PHONY: all
+all: test bench
+
 .PHONY: test
 test: clean test.bin
 	./test.bin
@@ -10,7 +13,7 @@ test.bin:
 	$(CC) -o test.bin -O0 test.c
 
 bench.bin:
-	$(CC) -o bench.bin -O2 bench.c
+	$(CC) -o bench.bin -O2 -lstdc++ -lbenchmark bench.cpp
 
 .PHONY: clean
 clean:

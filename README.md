@@ -46,7 +46,20 @@ Encoding *should* pick the smallest range capable to hold the value.
 
 ## Benchmark
 
-A full FLIT64 encode + decode cycle in C takes 2.80ns on a Mac Pro (Late 2013).
+Encoding and decoding in C is almost at memcpy speed on a Mac Pro (Late 2013).
+
+```
+------------------------------------------------------
+Benchmark               Time           CPU Iterations
+------------------------------------------------------
+BM_flit64enc/1          2 ns          2 ns  428443770   4.61419GB/s
+BM_flit64enc/5          2 ns          2 ns  371664313   3.97538GB/s
+BM_flit64enc/9          2 ns          2 ns  444204715   4.75065GB/s
+BM_flit64dec/1          2 ns          2 ns  355694672   3.80347GB/s
+BM_flit64dec/5          2 ns          2 ns  355394894   3.79726GB/s
+BM_flit64dec/9          2 ns          2 ns  449484377   4.80955GB/s
+BM_memcpy64             2 ns          2 ns  395777618    4.2804GB/s
+```
 
 The implementation in Go
 [![(GoDoc)](https://godoc.org/github.com/pascaldekloe/flit?status.svg)](https://godoc.org/github.com/pascaldekloe/flit)
