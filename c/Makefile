@@ -13,7 +13,7 @@ test.bin:
 	$(CC) -o test.bin -O0 test.c
 
 bench.bin:
-	$(CC) -o bench.bin -O2 -lstdc++ -lbenchmark bench.cpp
+	$(CC) -o bench.bin -O3 -lstdc++ -lbenchmark bench.cpp
 
 .PHONY: clean
 clean:

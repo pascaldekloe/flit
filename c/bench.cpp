@@ -10,12 +10,17 @@ uint8_t* buf = new uint8_t[9];
 uint64_t v64;
 
 
-static void setup(benchmark::State& state) {
+static inline void setup(benchmark::State& state) {
 	v64 = (uint64_t)1 << ((state.range(0) - 1) * 7);
 	size_t n = flit64enc(buf, v64);
 	if (n != state.range(0)) {
 		state.SkipWithError("size miss");
 	}
+}
+
+static inline void roundup(benchmark::State& state, size_t byteCount) {
+	state.SetItemsProcessed(state.iterations());
+	state.SetBytesProcessed(state.iterations() * byteCount);
 }
 
 static void BM_flit64enc(benchmark::State& state) {
@@ -26,7 +31,7 @@ static void BM_flit64enc(benchmark::State& state) {
 		benchmark::ClobberMemory();
 	}
 
-	state.SetBytesProcessed((int64_t)state.iterations() * 8);
+	roundup(state, 8);
 }
 
 static void BM_flit64dec(benchmark::State& state) {
@@ -36,7 +41,7 @@ static void BM_flit64dec(benchmark::State& state) {
 		benchmark::DoNotOptimize(flit64dec(&v64, buf));
 	}
 
-	state.SetBytesProcessed((int64_t)state.iterations() * 8);
+	roundup(state, 8);
 }
 
 static void BM_memcpy64(benchmark::State& state) {
@@ -47,7 +52,7 @@ static void BM_memcpy64(benchmark::State& state) {
 		benchmark::ClobberMemory();
 	}
 
-	state.SetBytesProcessed((int64_t)state.iterations() * 8);
+	roundup(state, 8);
 }
 
 BENCHMARK(BM_flit64enc)->DenseRange(1, 9, 4);
