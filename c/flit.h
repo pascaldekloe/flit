@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 // Decodes buf into v and returns the serial octet size.
-size_t flit64dec(uint64_t* v, const void* buf) {
+size_t flit64_dec(uint64_t* v, const void* buf) {
 	uint64_t x = *(uint64_t*)buf;
 
 	int tzc = 8;
@@ -45,7 +45,7 @@ size_t flit64dec(uint64_t* v, const void* buf) {
 }
 
 // Encodes v into buf and returns the serial octet size.
-size_t flit64enc(void* buf, uint64_t v) {
+size_t flit64_enc(void* buf, uint64_t v) {
 	if (v < 128) {
 		*(uint8_t*)buf = (uint8_t)v << 1 | 1;
 		return 1;

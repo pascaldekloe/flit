@@ -52,12 +52,12 @@ Encoding and decoding in C is almost at memcpy speed on a Mac Pro (Late 2013).
 ------------------------------------------------------
 Benchmark               Time           CPU Iterations
 ------------------------------------------------------
-BM_flit64enc/1          2 ns          2 ns  418162594   4.52895GB/s   579.706M items/s
-BM_flit64enc/5          2 ns          2 ns  372356270   3.97295GB/s   508.538M items/s
-BM_flit64enc/9          2 ns          2 ns  444419049   4.80462GB/s   614.991M items/s
-BM_flit64dec/1          2 ns          2 ns  353722934   3.78997GB/s   485.117M items/s
-BM_flit64dec/5          2 ns          2 ns  354477045   3.79497GB/s   485.756M items/s
-BM_flit64dec/9          2 ns          2 ns  450094198   4.80574GB/s   615.134M items/s
+BM_flit64_enc/1          2 ns          2 ns  418162594   4.52895GB/s   579.706M items/s
+BM_flit64_enc/5          2 ns          2 ns  372356270   3.97295GB/s   508.538M items/s
+BM_flit64_enc/9          2 ns          2 ns  444419049   4.80462GB/s   614.991M items/s
+BM_flit64_dec/1          2 ns          2 ns  353722934   3.78997GB/s   485.117M items/s
+BM_flit64_dec/5          2 ns          2 ns  354477045   3.79497GB/s   485.756M items/s
+BM_flit64_dec/9          2 ns          2 ns  450094198   4.80574GB/s   615.134M items/s
 BM_memcpy64             2 ns          2 ns  413846108   4.50834GB/s   577.068M items/s
 ```
 

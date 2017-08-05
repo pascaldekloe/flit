@@ -11,8 +11,8 @@ int main(int argc, char* argv[]) {
 		uint8_t buf[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 		uint64_t val = tests[i], got = 0;
 
-		int enced = flit64enc(buf, val);
-		int deced = flit64dec(&got, buf);
+		int enced = flit64_enc(buf, val);
+		int deced = flit64_dec(&got, buf);
 
 		if (got != val || enced != deced)
 			printf("got %" PRIu64 ", want %" PRIu64
