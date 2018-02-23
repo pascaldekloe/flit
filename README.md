@@ -20,17 +20,17 @@ The first octet advertises the number of octets following with the trailing
 zero count. Any remaining bits hold the least significant data bits and the
 following octets, if any at all, hold the rest in little-endian order.
 
-| Total Size | First Bits | Range                                                       |
-|:-----------|:-----------|:------------------------------------------------------------|
-| 1 octet    | xxxx xxx1  |  7-bit (0, 127)                                             |
-| 2 octets   | xxxx xx10  | 14-bit (128, 16'383)                                        |
-| 3 octets   | xxxx x100  | 21-bit (16'384, 2'097'151)                                  |
-| 4 octets   | xxxx 1000  | 28-bit (2'097'152, 268'435'455)                             |
-| 5 octets   | xxx1 0000  | 35-bit (268'435'456, 34'359'738'367)                        |
-| 6 octets   | xx10 0000  | 42-bit (34'359'738'368, 4'398'046'511'103)                  |
-| 7 octets   | x100 0000  | 49-bit (4'398'046'511'104, 562'949'953'421'311)             |
-| 8 octets   | 1000 0000  | 56-bit (562'949'953'421'312, 72'057'594'037'927'935)        |
-| 9 octets   | 0000 0000  | 64-bit (72'057'594'037'927'936, 18'446'744'073'709'551'615) |
+| Total Size | First Bits  | Range                               |
+|:-----------|:------------|:------------------------------------|
+| 1 octet    | `xxxx xxx1` | 7-bit (128)                         |
+| 2 octets   | `xxxx xx10` | 14-bit (16'384)                     |
+| 3 octets   | `xxxx x100` | 21-bit (2'097'152)                  |
+| 4 octets   | `xxxx 1000` | 28-bit (268'435'456)                |
+| 5 octets   | `xxx1 0000` | 35-bit (34'359'738'368)             |
+| 6 octets   | `xx10 0000` | 42-bit (4'398'046'511'104)          |
+| 7 octets   | `x100 0000` | 49-bit (562'949'953'421'312)        |
+| 8 octets   | `1000 0000` | 56-bit (72'057'594'037'927'936)     |
+| 9 octets   | `0000 0000` | 64-bit (18'446'744'073'709'551'616) |
 
 Encoding *should* pick the smallest range capable to hold the value.
 
@@ -75,3 +75,10 @@ BenchmarkUint64-12          	300000000	         4.07 ns/op	1966.81 MB/s
 BenchmarkUint64Raw-12       	1000000000	         2.15 ns/op	3723.81 MB/s
 BenchmarkUint64VQL-12       	100000000	        11.1 ns/op	 723.18 MB/s
 ```
+
+
+
+## Credits
+
+* Aleksey Demakov @ademakov
+* Roman Gershman @romange
