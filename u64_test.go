@@ -1,5 +1,3 @@
-// Package flit implements the FLIT algorithm.
-// This is free and unencumbered software released into the public domain.
 package flit
 
 import (

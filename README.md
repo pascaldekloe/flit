@@ -10,6 +10,8 @@ FLIT64 outperforms VLQ, a.k.a. varint, in terms of speed and size.
 * Size known at fist byte
 * CPU friendly: count zeros & bit shift, no loops
 
+This is free and unencumbered software released into the
+[public domain](http://creativecommons.org/publicdomain/zero/1.0).
 
 
 ## FLIT64
