@@ -31,7 +31,7 @@ func Uint64(buf []byte) (v uint64, n int) {
 	v &= readMasks[tz]
 
 	size := tz + 1
-	v >>= uint(size) & 63
+	v >>= uint(size)
 	return v, size
 }
 
@@ -42,7 +42,7 @@ func PutUint64(buf []byte, v uint64) (n int) {
 		buf[0] = uint8(v)<<1 | 1
 		return 1
 	}
-	if v >= uint64(1) << 56 {
+	if v >= uint64(1)<<56 {
 		buf[0] = 0
 		binary.LittleEndian.PutUint64(buf[1:], v)
 		return 9
@@ -54,7 +54,7 @@ func PutUint64(buf []byte, v uint64) (n int) {
 
 	v <<= 1
 	v |= 1
-	v <<= uint(e) & 63
+	v <<= uint(e)
 	binary.LittleEndian.PutUint64(buf, v)
 
 	return e + 1
