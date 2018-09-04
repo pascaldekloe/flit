@@ -45,6 +45,11 @@ Encoding *should* pick the smallest range capable to hold the value.
 4. Drop the two size bits with a bit shift to get `0000 0011 1110 1001` or decimal 1001.
 
 
+## FLIT64S
+
+For signed integers, the algorithm is preceded with *ZigZag encoding*. See the
+[Protocol Buffers Encoding](https://developers.google.com/protocol-buffers/docs/encoding#signed-integers)
+documentation for detailed information.
 
 ## Benchmark
 

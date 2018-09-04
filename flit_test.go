@@ -57,6 +57,28 @@ func TestUint64(t *testing.T) {
 	}
 }
 
+func TestSigned64(t *testing.T) {
+	buf := make([]byte, 9)
+
+	// verify preservation of each bit for
+	// both negative and positive range
+	for bit := uint(0); bit < 63; bit++ {
+		for _, u := range []uint64{0, 1<<63} {
+			u |= uint64(1) << bit
+
+			want := int64(u)
+			wrote := PutInt64(buf, want)
+			got, read := Int64(buf)
+			if read != wrote {
+				t.Errorf("%016x: wrote %d bytes, read %d", u, wrote, read)
+			}
+			if got != want {
+				t.Errorf("%016x: got %d for %d", u, got, want)
+			}
+		}
+	}
+}
+
 // benchmark data
 var values [18]uint64
 var serials [18][]byte

@@ -43,6 +43,14 @@ size_t flit64_dec(uint64_t* v, const void* buf) {
 	return size;
 }
 
+// Decodes buf into v and returns the serial octet size.
+size_t flit64s_dec(int64_t* v, const void* buf) {
+	uint64_t u;
+	size_t n = flit64_dec(&u, buf);
+	*v = (u >> 1) ^ (~(u & 1) + 1);
+	return n;
+}
+
 // Encodes v into buf and returns the serial octet size.
 size_t flit64_enc(void* buf, uint64_t v) {
 	if (v < 128) {
@@ -66,6 +74,11 @@ size_t flit64_enc(void* buf, uint64_t v) {
 	*(uint64_t*)buf = v;
 
 	return e + 1;
+}
+
+// Encodes v into buf and returns the serial octet size.
+size_t flit64s_enc(void* buf, int64_t v) {
+	return flit64_enc(buf, (v << 1) ^ (v >> 63));
 }
 
 #ifdef __cplusplus
