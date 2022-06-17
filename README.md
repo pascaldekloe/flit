@@ -53,7 +53,7 @@ documentation for detailed information.
 
 ## Benchmark
 
-Encoding and decoding in C is almost at memcpy speed on a Mac Pro (Late 2013).
+Encoding and decoding in C is almost at memcpy speed.
 
 ```
 ------------------------------------------------------
@@ -68,21 +68,19 @@ BM_flit64_dec/9          2 ns          2 ns  450094198   4.80574GB/s   615.134M 
 BM_memcpy64             2 ns          2 ns  413846108   4.50834GB/s   577.068M items/s
 ```
 
-The implementation in Go
-[![(GoDoc)](https://godoc.org/github.com/pascaldekloe/flit?status.svg)](https://godoc.org/github.com/pascaldekloe/flit)
-needs a bit more time due to limited inlining. The "Raw" benchmarks are as fast
-as its gets with fixed-width encoding.
-
+The same goes for Go.
 
 ```
-BenchmarkPutUint64-12       	200000000	         6.13 ns/op	1304.65 MB/s
-BenchmarkPutUint64Raw-12    	2000000000	         1.96 ns/op	4085.82 MB/s
-BenchmarkPutUint64VQL-12    	200000000	         7.22 ns/op	1108.19 MB/s
-BenchmarkUint64-12          	200000000	         7.03 ns/op	1138.26 MB/s
-BenchmarkUint64Raw-12       	1000000000	         2.08 ns/op	3842.63 MB/s
-BenchmarkUint64VQL-12       	100000000	        11.0 ns/op	 730.57 MB/s
+goos: darwin
+goarch: arm64
+pkg: github.com/pascaldekloe/flit
+BenchmarkPutUint64-8      	497578708	         2.091 ns/op	3825.80 MB/s
+BenchmarkPutUint64Raw-8   	580234668	         2.066 ns/op	3871.73 MB/s
+BenchmarkPutUint64VQL-8   	381299838	         3.144 ns/op	2544.50 MB/s
+BenchmarkUint64-8         	508336362	         2.356 ns/op	3396.16 MB/s
+BenchmarkUint64Raw-8      	586730718	         2.036 ns/op	3928.38 MB/s
+BenchmarkUint64VQL-8      	238780944	         5.025 ns/op	1591.98 MB/s
 ```
-
 
 
 ## Credits
