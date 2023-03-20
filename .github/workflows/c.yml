@@ -1,4 +1,4 @@
-name: C CI
+name: C
 
 on:
   push:
@@ -8,12 +8,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: make clean
+    - name: Clean
       run: make -C c clean
-    - name: make test
+    - name: Test
       run: make -C c test
