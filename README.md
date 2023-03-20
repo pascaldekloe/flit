@@ -53,33 +53,39 @@ documentation for detailed information.
 
 ## Benchmark
 
-Encoding and decoding in C is almost at memcpy speed.
+Encoding and decoding in C is faster than memcpy on an Apple M1.
 
 ```
-------------------------------------------------------
-Benchmark               Time           CPU Iterations
-------------------------------------------------------
-BM_flit64_enc/1          2 ns          2 ns  418162594   4.52895GB/s   579.706M items/s
-BM_flit64_enc/5          2 ns          2 ns  372356270   3.97295GB/s   508.538M items/s
-BM_flit64_enc/9          2 ns          2 ns  444419049   4.80462GB/s   614.991M items/s
-BM_flit64_dec/1          2 ns          2 ns  353722934   3.78997GB/s   485.117M items/s
-BM_flit64_dec/5          2 ns          2 ns  354477045   3.79497GB/s   485.756M items/s
-BM_flit64_dec/9          2 ns          2 ns  450094198   4.80574GB/s   615.134M items/s
-BM_memcpy64             2 ns          2 ns  413846108   4.50834GB/s   577.068M items/s
+--------------------------------------------------------------------------
+Benchmark                Time             CPU   Iterations UserCounters...
+--------------------------------------------------------------------------
+BM_flit64_enc/1      0.547 ns        0.547 ns   1000000000 bytes_per_second=13.6251G/s items_per_second=1.82873G/s
+BM_flit64_enc/5      0.860 ns        0.860 ns    811782442 bytes_per_second=8.66524G/s items_per_second=1.16303G/s
+BM_flit64_enc/9      0.625 ns        0.625 ns   1000000000 bytes_per_second=11.9131G/s items_per_second=1.59894G/s
+BM_flit64_dec/1      0.742 ns        0.742 ns    939862243 bytes_per_second=10.0367G/s items_per_second=1.34711G/s
+BM_flit64_dec/5      0.742 ns        0.742 ns    936479906 bytes_per_second=10.0357G/s items_per_second=1.34697G/s
+BM_flit64_dec/9      0.705 ns        0.705 ns    990701558 bytes_per_second=10.5737G/s items_per_second=1.41918G/s
+BM_memcpy64           2.04 ns         2.04 ns    343174264 bytes_per_second=3.65752G/s items_per_second=490.905M/s
 ```
 
-The same goes for Go.
+The speed is similar to native endian encoding in Go on Apple M1. Dito for Intel Xeon.
 
 ```
-goos: darwin
-goarch: arm64
-pkg: github.com/pascaldekloe/flit
-BenchmarkPutUint64-8      	497578708	         2.091 ns/op	3825.80 MB/s
-BenchmarkPutUint64Raw-8   	580234668	         2.066 ns/op	3871.73 MB/s
-BenchmarkPutUint64VQL-8   	381299838	         3.144 ns/op	2544.50 MB/s
-BenchmarkUint64-8         	508336362	         2.356 ns/op	3396.16 MB/s
-BenchmarkUint64Raw-8      	586730718	         2.036 ns/op	3928.38 MB/s
-BenchmarkUint64VQL-8      	238780944	         5.025 ns/op	1591.98 MB/s
+name            time/op
+PutUint64-8       2.08ns ± 0%
+PutUint64Raw-8    2.08ns ± 0%
+PutUint64VQL-8    3.77ns ± 0%
+Uint64-8          2.80ns ± 1%
+Uint64Raw-8       2.10ns ± 1%
+Uint64VQL-8       5.73ns ± 1%
+
+name            speed
+PutUint64-8     3.85GB/s ± 0%
+PutUint64Raw-8  3.84GB/s ± 0%
+PutUint64VQL-8  2.12GB/s ± 0%
+Uint64-8        2.86GB/s ± 1%
+Uint64Raw-8     3.80GB/s ± 1%
+Uint64VQL-8     1.40GB/s ± 1%
 ```
 
 
