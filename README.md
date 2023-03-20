@@ -15,6 +15,7 @@ This is free and unencumbered software released into the
 
 [![C](https://github.com/pascaldekloe/flit/actions/workflows/c.yml/badge.svg)](https://github.com/pascaldekloe/flit/actions/workflows/c.yml)
 [![Go](https://github.com/pascaldekloe/flit/actions/workflows/go.yml/badge.svg)](https://github.com/pascaldekloe/flit/actions/workflows/go.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/pascaldekloe/flit.svg)](https://pkg.go.dev/github.com/pascaldekloe/flit)
 
 
 ## FLIT64
