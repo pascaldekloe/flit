@@ -63,7 +63,7 @@ func TestSigned64(t *testing.T) {
 	// verify preservation of each bit for
 	// both negative and positive range
 	for bit := uint(0); bit < 63; bit++ {
-		for _, u := range []uint64{0, 1<<63} {
+		for _, u := range []uint64{0, 1 << 63} {
 			u |= uint64(1) << bit
 
 			want := int64(u)
