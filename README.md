@@ -13,6 +13,9 @@ FLIT64 outperforms VLQ, a.k.a. varint, in terms of speed and size.
 This is free and unencumbered software released into the
 [public domain](http://creativecommons.org/publicdomain/zero/1.0).
 
+[![C](https://github.com/pascaldekloe/flit/actions/workflows/c.yml/badge.svg)](https://github.com/pascaldekloe/flit/actions/workflows/c.yml)
+[![Go](https://github.com/pascaldekloe/flit/actions/workflows/go.yml/badge.svg)](https://github.com/pascaldekloe/flit/actions/workflows/go.yml)
+
 
 ## FLIT64
 
