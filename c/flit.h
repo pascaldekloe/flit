@@ -3,10 +3,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#ifndef __amd64__
-#error "first reference implementation AMD64 only"
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
